@@ -2,13 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import router from './router'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-import router from './router'
 import './libs/mui/css/mui.min.css'
+import './libs/mui/css/icons-extra.css'
+
 
 Vue.use(MintUI)
-
+Vue.router
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
