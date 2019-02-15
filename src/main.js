@@ -8,6 +8,7 @@ import moment from 'moment'
 Vue.use(VueResource)
 //设置请求跟路径
 Vue.http.options.root='http://www.lovegf.cn:8899';
+Vue.http.options.emulateJSON = true;
 
 //定义全局过滤器
 Vue.filter('dataFormat',function(dataStr,pattern='YYYY-MM-DD HH:mm:ss'){
