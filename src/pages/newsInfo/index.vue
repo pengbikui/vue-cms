@@ -1,17 +1,25 @@
 <template>
   <div class="newsInfo-container">
+    <!-- 标题 -->
     <h3 class="title">{{newsInfo.title}}</h3>
+    <!-- 子标题 -->
     <p class="subtitle">
       <span>发表时间:{{newsInfo.add_time | dataFormat}}</span>
       <span>点击:{{newsInfo.click}}次</span>
     </p>
     <hr>
-
+    <!--内容 -->
     <div class="content" v-html="newsInfo.content"></div>
+    <!-- 评论 -->
+    <comment-box :id="this.id"></comment-box>
   </div>
-</template>
+</template> 
 
 <script>
+//1.导入评论子组件
+import subComponent from '../subComponent'
+
+
 import {Toast} from "mint-ui";
 
 export default {
@@ -34,11 +42,15 @@ export default {
         }
       })
     }
+  },
+  components:{
+    //注册子组件
+    'comment-box':subComponent
   }
 }
 </script>
 
-<style lang='less' scoped>
+<style lang='less'>
    .newsInfo-container{
      padding:0 5px;
      .title{
@@ -52,6 +64,11 @@ export default {
        color: blue;
        display: flex;
        justify-content:space-between;
+     }
+     .content{
+       img{
+         width: 100%;
+       }
      }
    }
 </style>
