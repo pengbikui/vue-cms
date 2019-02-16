@@ -5,7 +5,12 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import moment from 'moment'
+import VuePreview from 'vue-pic-preview'
+
+//引入插件Vue preview plugin
 Vue.use(VueResource)
+Vue.use(VuePreview)
+
 //设置请求跟路径
 Vue.http.options.root='http://www.lovegf.cn:8899';
 Vue.http.options.emulateJSON = true;
