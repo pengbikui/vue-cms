@@ -1,47 +1,21 @@
 <template>
   <div class="productList-container">
-    <div class="product-item">
-      <img src="http://www.lovegf.cn:8899/7.jpg" alt>
-      <h1 class="title">Apple iPhone88</h1>
+    <router-link class="product-item" v-for="item in productList" :key="item.id" :to="'/home/productInfo/'+item.id" tag="div">
+      <img :src="item.img_url" alt>
+      <h1 class="title">{{item.title}}</h1>
       <div class="info">
         <p class="price">
-          <span class="now">$888</span>
-          <span class="old">$999</span>
+          <span class="now">¥{{item.sell_price}}</span>
+          <span class="old">¥{{item.market_price}}</span>
         </p>
         <p class="sell">
           <span>热卖中</span>
-          <span>剩60件</span>
+          <span>剩{{item.stock_quantity}}件</span>
         </p>
       </div>
-    </div>
-    <div class="product-item">
-      <img src="http://www.lovegf.cn:8899/7.jpg" alt>
-      <h1 class="title">Apple iPhone88</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">$888</span>
-          <span class="old">$999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
-    <div class="product-item">
-      <img src="http://www.lovegf.cn:8899/7.jpg" alt>
-      <h1 class="title">Apple iPhone88</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">$888</span>
-          <span class="old">$999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
+    </router-link>
+
+    <mt-button type="danger" size="large" plain @click='getMore'>加载更多</mt-button>
   </div>
 </template>
 
@@ -94,3 +68,33 @@
     }
   }
 </style>
+
+<script>
+export default {
+  data(){
+    //data是往自己组件内部挂在私有数据
+    return {
+      pageindex:1, //分页的页数
+      productList:[]
+    }
+  },
+  created () {
+    this.getProductList()
+  },
+  methods:{
+    //获取商品列表
+    getProductList(){
+      this.$http.get('api/getgoods?pageindex='+this.pageindex).then(result => {
+        if (result.body.status === 0){
+          this.productList=this.productList.concat(result.body.message);
+        }
+      })
+    },
+    getMore(){
+      this.pageIndex++;
+      this.getProductList()
+    }
+  }
+}
+</script>
+
